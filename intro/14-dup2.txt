@@ -1,0 +1,7 @@
+The duplicated fd: 1
+PING google.com (142.250.178.142) 56(84) bytes of data.
+64 bytes from par21s22-in-f14.1e100.net (142.250.178.142): icmp_seq=1 ttl=116 time=20.8 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 20.799/20.799/20.799/0.000 ms
