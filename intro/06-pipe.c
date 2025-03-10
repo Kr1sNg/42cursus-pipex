@@ -24,6 +24,7 @@ pipefd[1]: refers to the write end of the pipe (data goes in here).
 	pipefd[1] - write - stdout
 
 */
+/* communicate between processes parent and chid using pipes */
 
 #include <stdio.h>
 #include <string.h>

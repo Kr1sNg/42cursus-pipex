@@ -22,11 +22,23 @@
 # include <string.h>
 # include <unistd.h>
 # include <sys/wait.h>
+# include <stdbool.h>
 
 
 /*
 ** :::::::::::::::::::::::::::* STRUCT DECLARATION *::::::::::::::::::::::::: **
 */
+typedef struct s_pipex
+{
+	int		in_fd;
+	int		out_fd;
+	bool	here_doc;
+	bool	is_invalid_input;
+	bool	is_urandom;
+	char	**cmd_paths;
+	char	***cmd_args;
+	int		cmd_count;
+} 	t_pipex;
 
 
 /*
