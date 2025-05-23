@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getpid.c                                           :+:      :+:    :+:   */
+/*   27-fork_return.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 14:59:32 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/03/04 17:36:46 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/22 20:57:34 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@ getpid() returns the process ID (PID) of the calling process.
 getppid() returns the process ID of the parent of the calling process.
 		pid_t getpid(void);
        	pid_t getppid(void);
-
 
 */
 

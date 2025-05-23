@@ -1,0 +1,79 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/04 14:32:11 by tat-nguy          #+#    #+#             */
+/*   Updated: 2025/05/23 18:41:22 by tat-nguy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/pipex.h"
+
+char	*get_env(char *word, char **env)
+{
+	int		i;
+	int		j;
+	char	*sub;
+
+	i = 0;
+	while (env[i])
+	{
+		j = 0;
+		while (env[i][j] && env[i][j] != '=')
+			j++;
+		sub = ft_substr(env[i], 0, j);
+		if (ft_strcmp(sub, word) == 0)
+		{
+			free(sub);
+			return (env[i] + j + 1);
+		}
+		free(sub);
+		i++;
+	}
+	return (NULL);
+}
+
+char	*get_path(char *cmd, char **env)
+{
+	int		i;
+	char	*exec;
+	char	**allpath;
+	char	*path_part;
+
+	i = -1;
+	allpath = ft_split(get_env("PATH", env), ':');
+	while (allpath[++i])
+	{
+		path_part = ft_strjoin(allpath[i], "/");
+		exec = ft_strjoin(path_part, cmd);
+		free(path_part);
+		if (access(exec, F_OK | X_OK) == 0)
+			return (exec);
+		free(exec);
+	}
+	ft_split_free(allpath);
+	return (cmd);
+}
+
+void	ft_execute(char *cmd, char **env)
+{
+	char	**cmds;
+	char	*path;
+
+	cmds = ft_split(cmd, ' ');
+	path = get_path(cmds[0], env);
+	if (execve(path, cmds, env) == -1)
+	{
+		if (ft_strcmp(cmds[0], path))
+			free(path);
+		ft_putstr_fd("pipex: command not found: ", STDERR_FILENO);
+		ft_putendl_fd(cmds[0], STDERR_FILENO);
+		ft_split_free(cmds);
+		exit(EXIT_SUCCESS);
+	}
+	if (ft_strcmp(cmds[0], path))
+		free(path);
+}

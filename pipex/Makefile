@@ -5,54 +5,55 @@
 #                                                     +:+ +:+         +:+      #
 #    By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/07 16:04:41 by tbahin            #+#    #+#              #
-#    Updated: 2025/03/03 21:53:59 by tat-nguy         ###   ########.fr        #
+#    Created: 2025/05/22 11:14:07 by tat-nguy          #+#    #+#              #
+#    Updated: 2025/05/23 18:03:10 by tat-nguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		= minishell
+NAME = pipex
 
 # Libft
 LIBFT_DIR	= ./libft
 LIBFT		= $(LIBFT_DIR)/libft.a
 
 # Source Files
-DIR_SRCS	= src
-SUBDIRS		= main buildins cmd_check errors executing export_cmd lexing \
-				parsing redirect signal unset_cmd 
-SRCS_DIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(DIR_SRCS)/, $(dir)))
-SRCS		= $(foreach dir, $(SRCS_DIRS), $(wildcard $(dir)/*.c))
+SRC_DIR = src
+SRC     = $(foreach dir, $(SRC_DIR), $(wildcard $(dir)/*.c))
+BNS_DIR = bonus
+BNS_SRC = $(foreach dir, $(BNS_DIR), $(wildcard $(dir)/*.c))
+
 
 # Object Files
-OBJS		= $(SRCS:.c=.o)
+OBJS 	= $(SRC:.c=.o)
+OBJ_BNS = $(BNS_SRC:.c=.o)
 
 # Include and Flags
-INCLUDE		= -I include -I/opt/homebrew/opt/readline/include
-LDFLAGS     = -L/opt/homebrew/opt/readline/lib -lreadline
-# CFLAGS		= -Wall -Wextra -Werror
-CC			= cc
-RM			= rm -rf
+INCLUDE = -Iincludes
+CFLAGS 	= -Wall -Wextra -Werror
+CC 		= cc
+RM		= rm -rf
 
 # Target
-all : $(LIBFT) $(NAME)
+all: $(LIBFT) $(NAME)
 
 $(LIBFT):
 	@$(MAKE) -s -C $(LIBFT_DIR)
 
-$(NAME) : $(OBJS)
-	@$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) -L$(LIBFT_DIR) -lft $(LDFLAGS)
+$(NAME): $(OBJS)
+	@$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) -L$(LIBFT_DIR) -lft
+
+bonus: $(OBJ_BNS)
+	@$(CC) $(CFLAGS) $(INCLUDE) -o pipex_bonus $(OBJ_BNS) -L$(LIBFT_DIR) -lft
 
 # Clean
 clean:
-	@$(RM) $(OBJS)
+	@$(RM) $(OBJS) $(OBJ_BNS)
 	@$(MAKE) -s -C $(LIBFT_DIR) clean
 
-fclean:	clean
+fclean: clean
 	@$(RM) $(NAME)
 	@$(MAKE) -s -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
-bonus: re
-
-.PHONY : all clean fclean re bonus
+.PHONY: all clean fclean re bonus
