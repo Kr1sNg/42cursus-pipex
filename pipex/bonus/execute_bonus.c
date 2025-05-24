@@ -6,11 +6,11 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 14:32:11 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/23 19:12:25 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/23 22:18:45 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../includes/pipex_bonus.h"
 
 char	*get_env(char *word, char **env)
 {

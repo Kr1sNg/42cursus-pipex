@@ -6,7 +6,7 @@
 #    By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/22 11:14:07 by tat-nguy          #+#    #+#              #
-#    Updated: 2025/05/23 18:03:10 by tat-nguy         ###   ########.fr        #
+#    Updated: 2025/05/23 23:27:15 by tat-nguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ $(LIBFT):
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) -L$(LIBFT_DIR) -lft
 
-bonus: $(OBJ_BNS)
+bonus: $(LIBFT) $(OBJ_BNS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -o pipex_bonus $(OBJ_BNS) -L$(LIBFT_DIR) -lft
 
 # Clean
@@ -51,7 +51,7 @@ clean:
 	@$(MAKE) -s -C $(LIBFT_DIR) clean
 
 fclean: clean
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) pipex_bonus
 	@$(MAKE) -s -C $(LIBFT_DIR) fclean
 
 re: fclean all

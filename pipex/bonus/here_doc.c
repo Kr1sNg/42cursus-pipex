@@ -1,33 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 14:32:11 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/23 23:03:07 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/23 23:37:14 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../includes/pipex_bonus.h"
 
-int	main(int ac, char *av[], char *env[])
+// text input in heredoc while comparing with LIMITER
+void	input_heredoc(char **av, int *fd)
 {
-	int		parent_fd[2];
+	char	*text;
+
+	close(fd[0]);
+	while (1)
+	{
+		text = get_next_line(STDIN_FILENO);
+		if (ft_strncmp(text, av[2], ft_strlen(av[2])) == 0)
+		{
+			free(text);
+			exit(EXIT_SUCCESS);
+		}
+		ft_putstr_fd(text, fd[1]);
+		free(text);
+	}
+}
+
+void	here_doc(char **av)
+{
+	int		fd[2];
 	pid_t	pid;
 
-	if (ac != 5)
-		return (ft_putstr_fd("./pipex file1 cmd1 cmd2 file2\n", STDERR_FILENO),
-			EXIT_FAILURE);
-	if (pipe(parent_fd) == -1)
-		return (EXIT_FAILURE);
+	if (pipe(fd) == -1)
+		exit(EXIT_FAILURE);
 	pid = fork();
 	if (pid == -1)
-		return (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	if (pid == 0)
-		child_routine(av, parent_fd, env);
-	parent_routine(av, parent_fd, env);
-	wait(NULL);
-	return (EXIT_SUCCESS);
+		input_heredoc(av, fd);
+	else
+	{
+		close(fd[1]);
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+		wait(NULL);
+	}
 }

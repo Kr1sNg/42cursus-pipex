@@ -6,7 +6,7 @@
 /*   By: tat-nguy <tat-nguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 14:32:11 by tat-nguy          #+#    #+#             */
-/*   Updated: 2025/05/23 18:41:57 by tat-nguy         ###   ########.fr       */
+/*   Updated: 2025/05/23 23:26:14 by tat-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ void	child_routine(char **av, int *parent_fd, char **env)
 {
 	int	fd;
 
+	close(parent_fd[0]);
 	fd = ft_open(av[1], READ);
 	dup2(fd, STDIN_FILENO);
 	dup2(parent_fd[1], STDOUT_FILENO);
-	close(parent_fd[0]);
+	close(fd);
+	close(parent_fd[1]);
 	ft_execute(av[2], env);
 }
 
@@ -43,9 +45,11 @@ void	parent_routine(char **av, int *parent_fd, char **env)
 {
 	int	fd;
 
+	close(parent_fd[1]);
 	fd = ft_open(av[4], WRITE);
 	dup2(fd, STDOUT_FILENO);
 	dup2(parent_fd[0], STDIN_FILENO);
-	close(parent_fd[1]);
+	close(fd);
+	close(parent_fd[0]);
 	ft_execute(av[3], env);
 }
