@@ -30,8 +30,8 @@ waiting for has not changed states yet.
 wait() are doing is not only waiting for child processes to end,
 but also get the exit code so the child process can be cleaned up properly
 
-pid: the PID of child process we should wait for. As -1 is the parent process, indeed waitpid(-1, status, 0) is exactly the same
-with wait(status).
+pid: the PID of child process we should wait for. As -1 is the parent process, indeed waitpid(-1, &status, 0) is exactly the same
+with wait(&status).
 
 options: waitpid offers several options. There's WNOHANG. With this option, waitpid returns
 immediately if the child process has not ended yet. Without WNOHANG, the parent process will by
