@@ -1,31 +1,35 @@
-# 42cursus-pipex
-Redirections and Pipes in UNIX
+# pipex - Redirections and Pipes in UNIX 🚿
 
-## Mandatory Part
-The program pipex should repeat the behaviour of the next shell command:
+### 💡 Mandatory Part
+The program pipex should mimic behaviours of the following shell command:
 ```bash
-$> < file1 cmd1 | cmd2 > file2
+$> < filein cmd1 | cmd2 > fileout
 ```
 and looks like this:
 ```bash
-$> ./pipex file1 cmd1 cmd2 file2
+$> ./pipex filein cmd1 cmd2 fileout
 ```
-All errors like: wrong commands, permission to files and etc, need be handle.
+All errors like: wrong commands, permission to files and etc, need to be handled.
 
-## Bonus Part
-Program need handle multiple pipes
+### 🕯️ Bonus Part
+The program needs to handle multiple pipes
 ```bash
-$> < file1 cmd1 | cmd2 | cmd3 | ... | cmdn > file2
+$> < filein cmd1 | cmd2 | cmd3 | ... | cmdn > fileout
 
-$> ./pipex file1 cmd1 cmd2 cmd3 ... cmdn file2
+$> ./pipex filein cmd1 cmd2 cmd3 ... cmdn fileout
 ```
 Support `<<` and `>>`, when instead of `file1` is `here_doc`.
 ```bash
-$> cmd1 << LIMITER | cmd2 >> file2
+$> cmd1 << LIMITER | cmd2 >> fileout
 
-$> ./pipex here_doc LIMITER cmd1 cmd2 file2
+$> ./pipex here_doc LIMITER cmd1 cmd2 fileout
 ```
-#### References
+
+---
+### 🐛 Issues and Bugs
+Please feel free to create a new issue with its title and description on the `issues` page of this [42cursus-pipex](https://github.com/Kr1sNg/42cursus-pipex/) repository. If you have already found the solution to the problem, I would love to review your `pull request`!
+
+---
+### 📚 References
 - https://www.rozmichelle.com/pipes-forks-dups/
 - https://www.codequoi.com/en/pipe-an-inter-process-communication-method/
-
